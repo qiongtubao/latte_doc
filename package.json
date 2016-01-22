@@ -1,0 +1,19 @@
+{
+	"name":"latte_doc",
+    "version":"0.0.1",
+	"description": "latte_doc",
+	"keywords": ["latte","latte_shell"],
+	"author": "qiongtubao",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/qiongtubao/latte_doc.git"
+	},
+	"bin": {
+	    "doc": "bin/doc"
+  	},
+	"dependencies": {
+		"yuidocjs": "*"
+	   
+	}
+}

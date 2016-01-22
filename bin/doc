@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+(function(define) {'use strict'
+	define("latte", ["require", "exports", "module", "window"], 
+		function(require, exports, module, window) {
+			var Path = require("path")
+		
+			var GetConfig = function() {
+				var config;
+				var index = process.argv.indexOf("-c");
+				if(index != -1) {
+					config = process.argv[index+1];
+				}
+				config = config || ".latte/doc.json";
+				var buildConfigPath = Path.join(process.cwd()+"/"+config);
+				var buildConfig;
+				try {
+					buildConfig = require(buildConfigPath);
+				}catch(e) {
+					return null;
+				}
+				return buildConfig;
+			};
+
+			var doc = function(type) {
+				//var applyArray = Array.prototype.splice.call(arguments, 1);
+	 			var config = GetConfig();
+	 			if(!config) {
+	 				config = {
+	 					type: "latteDoc"
+	 				}
+	 			}
+	 			var packageJson;
+				try {
+					packageJson = require(process.cwd() + "/" + "package.json");
+				}catch(e) {
+					packageJson = {};
+				}
+	         	type = type || config.type;
+	         	var handle = doc[type];
+	         	if(!handle) {
+	         		return console.log("no the type "+type);
+	         	}
+	         	handle();
+
+
+			};
+			(function() {
+				this.latteDoc = require("../lib/latteDoc").build;
+			}).call(doc);
+			module.exports = doc;
+		});
+})(typeof define === "function"? define: function(name, reqs, factory) { factory(require, exports, module); });
