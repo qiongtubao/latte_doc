@@ -30,12 +30,13 @@
 				}catch(e) {
 					packageJson = {};
 				}
-	         	type = type || config.type || "latteDoc";
+	         	type = type || "latteDoc";
+
 	         	var handle = doc[type];
 	         	if(!handle) {
 	         		return console.log("no the type "+type);
 	         	}
-	         	handle();
+	         	handle(config);
 
 
 			};
